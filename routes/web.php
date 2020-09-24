@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     // Route::get('todo/favorite', 'Admin\TodoController@favorite');
     Route::get('todo/favorites', 'Admin\TodoController@favorites');
     Route::get('todo/unfavorites', 'Admin\TodoController@unfavorites');
+    Route::get('todo/test', 'Admin\TodoController@test');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {

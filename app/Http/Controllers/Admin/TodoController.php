@@ -165,4 +165,9 @@ class TodoController extends Controller
         
         return redirect('admin/todo/');
     }
+
+    public function test()
+    {
+        return view('admin.todo.test');
+    }
 }

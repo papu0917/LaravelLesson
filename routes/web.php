@@ -21,6 +21,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
     Route::get('todo/create', 'Admin\TodoController@add');
     Route::post('todo/create', 'Admin\TodoController@create');
+    // Route::get('todo/create', 'Admin\TodoController@index');
     Route::get('todo', 'Admin\TodoController@index');
     Route::get('todo/edit', 'Admin\TodoController@edit');
     Route::post('todo/edit', 'Admin\TodoController@update');

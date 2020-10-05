@@ -12,7 +12,7 @@ class ToDo extends Model
 
     public static $rules = array(
         'title' => 'required',
-        
+
     );
 
     public function category()

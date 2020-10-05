@@ -12,10 +12,13 @@ use App\Tag;
 use Auth;
 use Carbon\Carbon;
 
+// クラス
 class TodoController extends Controller
 {
+    // メソッド
     public function add()
     {
+        // インスタンス
         $tags = Tag::all();
         $categories = Category::all();
         return view('admin.todo.create', ['categories' => $categories, 'tags' => $tags]);
@@ -23,9 +26,11 @@ class TodoController extends Controller
     
     public function create(Request $request)
     {
-        // dd($request);
+        // dd($request); // リクエストのTag_idがいつの間にかnullになっている　訳わからん
         $this->validate($request, ToDo::$rules);
         $todo = new ToDo;
+        // $todo = ToDo::whereHas('tag_id', $tag->id);
+        // $tag = new Tag;
         $form = $request->all();
         
         unset($form['_token']);
@@ -34,18 +39,14 @@ class TodoController extends Controller
         $todo->user_id = Auth::id();
         $todo->is_complete = 0;
         $todo->is_favorite = 0;
-        $todo->save();
+        $todo->save(); 
+        $todo->tags()->attach($request->tag_ids);
 
-        // $todo->tags()->attach(); // id=1のTagを紐付ける
-        // $todo_id->tags->save();
-        
-        return redirect('admin/todo/create');
+        return redirect('admin/todo/');
     }
     // ログイン中のユーザーのtodoの一覧
     public function index(Request $request)
     {
-        // $todo = ToDo::find(44);
-        // dd($todo->tags);
 
         $user = Auth::user();
         $toDoQuery = ToDo::where('user_id', $user->id); //$userによる投稿を取得
@@ -67,11 +68,8 @@ class TodoController extends Controller
                 $query->where('name', $cond_name);
             });
         }
-        
+
         $toDos = $toDoQuery->paginate(5);
-        
-        // dd($toDos);
-        
         
         return view('admin.todo.index', ['posts' => $toDos, 'cond_title' => $cond_title, 'cond_name' => $cond_name]);
     }
@@ -150,10 +148,21 @@ class TodoController extends Controller
     public function favorites(Request $request)
     {
         $user = Auth::user();
-        $users = $user->todo_favorites;
-        
-        
-        return view('admin.todo.favorites', ['users' => $users]);
+        // $favorites = ToDo::all();
+        // $favorites = ToDo::where('user_id', $user->id);
+        // $favorites->where('is_complete', 0);
+        $favorites = $user->todo_favorites;
+        // $favorites->users()->attach($todo_favorites);
+        // $favorites->save();
+
+        // $cond_title = $request->cond_title;
+        // if ($cond_title != '') {
+        //     $favorites->where('title', $cond_title);
+        // }
+
+        // $favorites->get();
+        // 'cond_title' => $cond_title
+        return view('admin.todo.favorites', ['favorites' => $favorites]);
     }
 
 

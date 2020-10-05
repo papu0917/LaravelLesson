@@ -18,14 +18,14 @@
                             </tr>
                         </thead>
                         <tbody>                  
-                            @foreach($users as $user)
+                            @foreach($favorites as $favorites)
                                 <tr>
                                     <th>{{ auth()->user()->name }}</th>
                                     <th>{{ auth()->user()->id }}</th>
-                                    <th>{{ $user->title }}</th>
+                                    <th>{{ $favorites->title }}</th>
                                     <td>
                                         <div>
-                                            <a href="{{ action('Admin\TodoController@unfavorites', ['id' => $user]) }}">お気に入りから外す</a>
+                                            <a href="{{ action('Admin\TodoController@unfavorites', ['id' => $favorites]) }}">お気に入りから外す</a>
                                         </div>
                                     </td>
                                 </tr>

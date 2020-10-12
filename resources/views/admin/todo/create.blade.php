@@ -10,7 +10,7 @@
 
                     @if (count($errors) > 0)
                         <ul>
-                            @foreach($errors->all() as $e)
+                            @foreach ($errors->all() as $e)
                                 <li>{{ $e }}</li>
                             @endforeach
                         </ul>
@@ -27,7 +27,7 @@
                             <input type="date" class="form-control" name="deadline_date" value="{{ old('deadline_date') }}">
                         </div>
                     </div>
-                      <div class="form-group row">
+                    <div class="form-group row">
                         <label class="col-md-2">優先度</label>
                         <div class="col-md-10">
                             <select name="priority">
@@ -44,7 +44,7 @@
                         <label class="col-md-2">カテゴリー</label>
                         <div class="col-md-10">
                             <select name="category_id">
-                                @foreach($categories as $category)
+                                @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
@@ -53,9 +53,9 @@
                     <div class="form-group row">
                         <label class="col-md-2">タグ</label>
                         <div class="col-md-10">
-                                @foreach($tags as $tag)
-                                    <input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}">{{ $tag->name }}
-                                @endforeach
+                            @foreach ($tags as $tag)
+                                <input type="checkbox" name="tag_ids[]" value="{{ $tag->id }}">{{ $tag->name }}
+                            @endforeach
                         </div>
                     </div>
                     {{ csrf_field() }}

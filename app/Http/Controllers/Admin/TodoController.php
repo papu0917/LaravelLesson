@@ -40,7 +40,7 @@ class TodoController extends Controller
         $todo->is_complete = 0;
         $todo->is_favorite = 0;
         $todo->save();
-        $todo->tags()->attach($request->tag_ids);
+        $todo->tags()->attach($request->tags);
 
         return redirect('admin/todo/');
     }
@@ -84,7 +84,7 @@ class TodoController extends Controller
         $tags = Tag::all();
         $categories = Category::all();
 
-        return view('admin.todo.edit', ['todo_form' => $todo, 'categories' => $categories, 'tags' => $tags]);
+        return view('admin.todo.edit', ['todo' => $todo, 'categories' => $categories, 'tags' => $tags]);
     }
 
     public function update(Request $request)

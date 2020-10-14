@@ -18,14 +18,13 @@
                     <div class="form-group row">
                         <label class="col-md-2">タイトル</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" name="title" value="{{ $todo_form->title }}">
+                            <input type="text" class="form-control" name="title" value="{{ $todo->title }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-2">期限日</label>
                         <div class="col-md-10">
-                            <input type="date" class="form-control" name="deadline_date"
-                                value="{{ $todo_form->deadline_date }}">
+                            <input type="date" class="form-control" name="deadline_date" value="{{ $todo->deadline_date }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -37,7 +36,7 @@
                                 <option>3</option>
                                 <option>4</option>
                                 <option>5</option>
-                                <option value="{{ $todo_form->priority }}">
+                                <option value="{{ $todo->priority }}">
                             </select>
                         </div>
                     </div>
@@ -56,9 +55,9 @@
                         <div class="col-md-10">
                             @foreach ($tags as $tag)
                                 <div class="form-check">
-                                    @if ($todo_form->tags->search(function ($item, $key) use ($tag) {
+                                    @if ($todo->tags->search(function ($item, $key) use ($tag) {
             return $item->id == $tag->id;
-        }))
+        }) !== false)
                                         <input type="checkbox" name="tags[]" id="tag{{ $loop->iteration }}"
                                             value="{{ $tag->id }}" checked />
                                     @else
@@ -72,7 +71,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-10">
-                            <input type="hidden" name="id" value="{{ $todo_form->id }}">
+                            <input type="hidden" name="id" value="{{ $todo->id }}">
                             {{ csrf_field() }}
                             <input type="submit" class="btn btn-primary" value="更新">
                             <a href="{{ action('Admin\TodoController@index') }}" role="button"

@@ -56,32 +56,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($posts as $todo)
+                            @foreach ($posts as $todo)
                                 @if (now() > $todo->deadline_date)
                                     <tr class="bg-warning">
-                                @else
+                                    @else
                                     </tr>
                                 @endif
-                                    <th>{{ $todo->user_id }}</th>
-                                    <td>{{ \Str::limit($todo->title, 100) }}</td>
-                                    <td>{{ $todo->deadline_date }}</td>
-                                    <th>{{ $todo->priority }}</th>
-                                    <td>{{ $todo->category->name }}</td>
-                                    <td>@foreach ($todo->tags as $tag) {{ $tag->name }} @endforeach</td>
-                                    <td>
-                                        <div>
-                                            <a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a>
-                                        </div>
-                                        <div>
-                                            <a href="{{ action('Admin\TodoController@delete', ['id' => $todo->id]) }}">削除</a>
-                                        </div>
-                                        <div>
-                                            <a href="{{ action('Admin\TodoController@complete', ['id' => $todo->id]) }}">完了</a>
-                                        </div>
-                                        <div>
-                                            <a href="{{ action('Admin\TodoController@favorites', ['id' => $todo->id]) }}">お気に入り</a>
-                                        </div>
-                                    </td>
+                                <th>{{ $todo->id }}</th>
+                                <td>{{ \Str::limit($todo->title, 100) }}</td>
+                                <td>{{ $todo->deadline_date }}</td>
+                                <th>{{ $todo->priority }}</th>
+                                <td>{{ $todo->category->name }}</td>
+                                <td>
+                                    @foreach ($todo->tags as $tag) {{ $tag->name }}
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <div>
+                                        <a href="{{ action('Admin\TodoController@edit', ['id' => $todo->id]) }}">編集</a>
+                                    </div>
+                                    <div>
+                                        <a href="{{ action('Admin\TodoController@delete', ['id' => $todo->id]) }}">削除</a>
+                                    </div>
+                                    <div>
+                                        <a href="{{ action('Admin\TodoController@complete', ['id' => $todo->id]) }}">完了</a>
+                                    </div>
+                                    <div>
+                                        <a
+                                            href="{{ action('Admin\TodoController@favorites', ['id' => $todo->id]) }}">お気に入り</a>
+                                    </div>
+                                </td>
                             @endforeach
                         </tbody>
                     </table>
